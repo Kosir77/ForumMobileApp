@@ -1,8 +1,6 @@
 package com.example.myapplication;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,10 +27,8 @@ public class AddUserActivity extends AppCompatActivity {
     private EditText username;
     private EditText email;
     private EditText password;
-
     private RequestQueue requestQueue;
     private String url = "https://tilenkelc.eu/Forum/api/register";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +40,7 @@ public class AddUserActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.tePassword);
         status = (TextView) findViewById(R.id.status);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-
     }
-
     public void addUser(View view){
         this.status.setText("Posting to " + url);
         try {
@@ -69,8 +63,8 @@ public class AddUserActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("LOG_VOLLEY", error.toString());
                 }
-            }
-            ) {
+            })
+            {
                 @Override
                 public String getBodyContentType() {
                     return "application/json; charset=utf-8";
@@ -93,14 +87,10 @@ public class AddUserActivity extends AppCompatActivity {
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                 }
-
             };
-
             requestQueue.add(stringRequest);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 }

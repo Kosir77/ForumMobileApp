@@ -55,7 +55,7 @@
             android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="prikaziUporabnike"
+            android:onClick="prikaziObjave"
             android:text="back" />
 
         <TextView

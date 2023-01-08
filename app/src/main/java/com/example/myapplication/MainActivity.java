@@ -24,18 +24,18 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
-    private TextView uporabniki;
-    private String url = "https://tilenkelc.eu/Forum/api/profile";
+    private TextView objave;
+    private String url = "https://tilenkelc.eu/Forum/api/posts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        uporabniki = (TextView) findViewById(R.id.uporabniki);
+        objave = (TextView) findViewById(R.id.objave);
     }
 
-    public  void prikaziUporabnike(View view){
+    public  void prikaziObjave(View view){
         if (view != null){
             JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
             requestQueue.add(request);
@@ -50,10 +50,16 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++){
                 try {
                     JSONObject object =response.getJSONObject(i);
-                    String username = object.getString("username");
+                    String userId = object.getString("user_id");
+                    String title = object.getString("title");
+                    String content = object.getString("content");
                     String createdAt = object.getString("created_at");
 
-                    data.add(username + " " + " " + createdAt);
+                    data.add("Created at: " + createdAt + "\n" +
+                            "user: " + userId + "\n" +
+                            "title: " + title + "\n" +
+                            "content: " + content);
+
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -62,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            uporabniki.setText("");
+            objave.setText("");
 
 
             for (String row: data){
-                String currentText = uporabniki.getText().toString();
-                uporabniki.setText(currentText + "\n\n" + row);
+                String currentText = objave.getText().toString();
+                objave.setText(currentText + "\n\n" + row);
             }
 
         }
